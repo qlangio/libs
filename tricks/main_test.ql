@@ -3,6 +3,9 @@ import "tricks"
 // ---------------------------------
 
 Foo = class {
+	fn _init() {
+		this.a = 1
+	}
 }
 
 tricks.of(Foo).inject({
@@ -12,11 +15,12 @@ tricks.of(Foo).inject({
 })
 
 foo = new Foo
+if foo.a != 1 {
+	panic("foo.a != 1")
+}
 
 foo.f(3)
-
 println(foo.a)
-
 if foo.a != 3 {
 	panic("foo.a != 3")
 }
@@ -24,24 +28,32 @@ if foo.a != 3 {
 // ---------------------------------
 
 Bar = class {
-	fn g() {
-		return this.a
+	fn _init() {
+		Foo._init(this)
+		this.b = 2
 	}
+
+	fn g() {
+		return this.a + this.b
+	}
+
 	fn h(a) {
-		this.f(a+1)
+		this.f(a + 1)
 	}
 }
 
 tricks.of(Bar).inherit(Foo)
 
 bar = new Bar
+if bar.a != 1 || bar.b != 2 {
+	panic("bar.a != 1 || bar.b != 2")
+}
 
 bar.h(3)
 
 println(bar.g())
-
-if bar.g() != 4 {
-	panic("bar.g() != 4")
+if bar.g() != 6 {
+	panic("bar.g() != 6")
 }
 
 // ---------------------------------
