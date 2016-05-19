@@ -8,7 +8,7 @@ Foo = class {
 	}
 }
 
-tricks.of(Foo).inject({
+tricks.inject(Foo, {
 	"f": fn(this, a) {
 		this.a = a
 	},
@@ -42,7 +42,7 @@ Bar = class {
 	}
 }
 
-tricks.of(Bar).inherit(Foo)
+tricks.inherit(Bar, Foo)
 
 bar = new Bar
 if bar.a != 1 || bar.b != 2 {

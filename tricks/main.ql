@@ -23,4 +23,12 @@ of = fn(Class) {
 	return new Fntable(reflect.valueOf(Class).elem().fieldByName("Fns").interface())
 }
 
-export of
+inject = fn(Class, tbl) {
+	of(Class).inject(tbl)
+}
+
+inherit = fn(Class, Base) {
+	of(Class).inherit(Base)
+}
+
+export of, inject, inherit
